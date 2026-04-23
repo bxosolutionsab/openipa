@@ -1,0 +1,14 @@
+<Alarm Id="101">
+    <Source>
+        <Section>5</Section>
+        <Room>50</Room>
+    </Source>
+    <Type Qualifier="New" Severity="100">FIRE</Type>
+    <Location>
+        <Gps>
+            <Longitude>17.87930</Longitude>
+            <Latitude>59.41310</Latitude>
+            <Altitude>57</Altitude>
+        </Gps>
+    </Location>
+</Alarm>
