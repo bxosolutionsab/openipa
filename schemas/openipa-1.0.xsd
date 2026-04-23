@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="Ack" type="AckType"/>
+  <xs:element name="Heartbeat" type="HeartbeatType"/>
+  <xs:element name="TextMessage" type="TextMessageType"/>
+  <xs:element name="Alarm" type="AlarmType"/>
+
+  <xs:complexType name="AckType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Id" type="xs:string" use="required"/>
+        <xs:attribute name="Result" type="xs:int" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="HeartbeatType">
+    <xs:attribute name="Id" type="xs:string"/>
+    <xs:attribute name="ClientId" type="xs:string"/>
+    <xs:attribute name="Authentication" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="TextMessageType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Id" type="xs:string"/>
+        <xs:attribute name="To" type="xs:string"/>
+        <xs:attribute name="From" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="AlarmType">
+    <xs:sequence>
+      <xs:element name="Source" type="SourceType"/>
+      <xs:element name="Type" type="AlarmMessageType"/>
+      <xs:element name="Location" type="LocationType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="Id" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="SourceType" mixed="true">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="Client" type="xs:string" minOccurs="0"/>
+      <xs:element name="Department" type="xs:string" minOccurs="0"/>
+      <xs:element name="Building" type="xs:string" minOccurs="0"/>
+      <xs:element name="Ward" type="xs:string" minOccurs="0"/>
+      <xs:element name="Section" type="xs:string" minOccurs="0"/>
+      <xs:element name="Room" type="xs:string" minOccurs="0"/>
+      <xs:element name="Detector" type="xs:string" minOccurs="0"/>
+      <xs:element name="Transmitter" type="xs:string" minOccurs="0"/>
+      <xs:element name="Phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AlarmMessageType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Qualifier" type="xs:string"/>
+        <xs:attribute name="Severity" type="SeverityType"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="SeverityType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="LocationType">
+    <xs:choice>
+      <xs:element name="CellInfo" type="CellInfoType"/>
+      <xs:element name="BeaconId" type="xs:string"/>
+      <xs:element name="Gps" type="GpsType"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="CellInfoType">
+    <xs:sequence>
+      <xs:element name="MCC" type="xs:string"/>
+      <xs:element name="MNC" type="xs:string"/>
+      <xs:element name="LAC" type="xs:string"/>
+      <xs:element name="CI" type="xs:string"/>
+      <xs:element name="TA" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GpsType">
+    <xs:sequence>
+      <xs:element name="Longitude" type="xs:string" minOccurs="0"/>
+      <xs:element name="Latitude" type="xs:string" minOccurs="0"/>
+      <xs:element name="Altitude" type="xs:string" minOccurs="0"/>
+      <xs:element name="Direction" type="xs:string" minOccurs="0"/>
+      <xs:element name="Speed" type="xs:string" minOccurs="0"/>
+      <xs:element name="TimeStamp" type="xs:string" minOccurs="0"/>
+      <xs:element name="HorizontalAccuracy" type="xs:string" minOccurs="0"/>
+      <xs:element name="VerticalAccuracy" type="xs:string" minOccurs="0"/>
+      <xs:element name="DirectionAccuracy" type="xs:string" minOccurs="0"/>
+      <xs:element name="SpeedAccuracy" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
